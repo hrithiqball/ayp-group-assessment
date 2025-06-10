@@ -1,4 +1,3 @@
-import { useIsMobile } from '@/hooks/use-is-mobile'
 import { Input } from '../input'
 import { Label } from '../label'
 import { Switch } from '../switch'

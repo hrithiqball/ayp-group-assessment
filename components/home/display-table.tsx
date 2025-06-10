@@ -15,6 +15,7 @@ import { useEmployeeStore } from '@/hooks/use-employee-store'
 import { paginateData } from '@/lib/pagination'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { cn } from '@/lib/utils'
 
 type DisplayTableProps = {
   initialData: Employee[]
@@ -56,8 +57,15 @@ export function DisplayTable({ initialData }: DisplayTableProps) {
               <TableCell>{employee.id}</TableCell>
               <TableCell className="font-medium">{employee.name}</TableCell>
               <TableCell>{employee.email}</TableCell>
-              <TableCell className="uppercase">
-                {employee.isActive ? 'active' : 'deactivated'}
+              <TableCell className="uppercase" align="center">
+                <span
+                  className={cn('text-xs font-semibold px-1 py-1 rounded', {
+                    'bg-green-200 text-green-800': employee.isActive,
+                    'bg-red-200 text-red-800': !employee.isActive,
+                  })}
+                >
+                  {employee.isActive ? 'active' : 'deactivated'}
+                </span>
               </TableCell>
               <TableCell className="text-right">
                 {employee.isActive && <UpdateButton employee={employee} />}

@@ -5999,24 +5999,6 @@
       "name": "Victoria Murphy",
       "email": "victoria.murphy@ayp-group.com",
       "isActive": false
-    },
-    {
-      "id": 1001,
-      "name": "Zoe Roberts",
-      "email": "zoe.roberts@ayp-group.com",
-      "isActive": true
-    },
-    {
-      "id": 1002,
-      "name": "Kevin Lee",
-      "email": "kevin.lee@ayp-group.com",
-      "isActive": true
-    },
-    {
-      "id": 1003,
-      "name": "Uma Allen",
-      "email": "uma.allen@ayp-group.com",
-      "isActive": true
     }
   ]
 }

@@ -1,4 +1,8 @@
+import { useEmployeeStore } from '@/hooks/use-employee-store'
+import { useIsMobile } from '@/hooks/use-is-mobile'
 import { Employee } from '@/types/employee'
+import { useState } from 'react'
+import { toast } from 'sonner'
 import { Button } from '../button'
 import {
   Dialog,
@@ -8,13 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../dialog'
-import { Input } from '../input'
-import { Label } from '../label'
-import { Switch } from '../switch'
-import { useState } from 'react'
-import { useEmployeeStore } from '@/hooks/use-employee-store'
-import { useIsMobile } from '@/hooks/use-is-mobile'
-import { UpdateEmployee } from './update-employee'
 import {
   Drawer,
   DrawerClose,
@@ -24,7 +21,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../drawer'
-import { toast } from 'sonner'
+import { UpdateEmployee } from './update-employee'
 
 type UpdateButtonProps = {
   employee: Employee
