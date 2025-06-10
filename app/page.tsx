@@ -10,11 +10,19 @@ export default async function Home(props: { searchParams: SearchParams }) {
 
   const hasSize = searchParams.size !== undefined
   const hasPage = searchParams.page !== undefined
+  const hasSortBy = searchParams.sortBy !== undefined
+  const hasSortOrder = searchParams.sortOrder !== undefined
+  const hasFilter = searchParams.filter !== undefined
 
   if (!hasSize || !hasPage) {
     const size = hasSize ? searchParams.size : '20'
     const page = hasPage ? searchParams.page : '1'
-    redirect(`/?size=${size}&page=${page}`)
+    const sortBy = hasSortBy ? searchParams.sortBy : 'id'
+    const sortOrder = hasSortOrder ? searchParams.sortOrder : 'asc'
+    const filter = hasFilter ? searchParams.filter : 'filter[status]='
+    redirect(
+      `/?size=${size}&page=${page}&sortBy=${sortBy}&sortOrder=${sortOrder}&${filter}`
+    )
   }
 
   return (
