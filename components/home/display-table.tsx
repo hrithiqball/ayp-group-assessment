@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@/components/table'
 import { Employee } from '@/types/employee'
-import { useEmployeeStore } from '@/hooks/employee-store'
+import { useEmployeeStore } from '@/hooks/use-employee-store'
 import { paginateData } from '@/lib/pagination'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'

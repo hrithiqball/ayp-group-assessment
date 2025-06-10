@@ -12,7 +12,19 @@ import { Input } from '../input'
 import { Label } from '../label'
 import { Switch } from '../switch'
 import { useState } from 'react'
-import { useEmployeeStore } from '@/hooks/employee-store'
+import { useEmployeeStore } from '@/hooks/use-employee-store'
+import { useIsMobile } from '@/hooks/use-is-mobile'
+import { UpdateEmployee } from './update-employee'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '../drawer'
+import { toast } from 'sonner'
 
 type UpdateButtonProps = {
   employee: Employee
@@ -25,6 +37,7 @@ export function UpdateButton({ employee }: UpdateButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const updateEmployee = useEmployeeStore(state => state.updateEmployee)
+  const isMobile = useIsMobile()
 
   const handleSave = () => {
     updateEmployee(employee.id, {
@@ -33,6 +46,9 @@ export function UpdateButton({ employee }: UpdateButtonProps) {
       isActive,
     })
     setIsOpen(false)
+    toast.success('Employee updated successfully', {
+      position: isMobile ? 'top-center' : 'bottom-right',
+    })
   }
 
   const handleCancel = () => {
@@ -42,7 +58,36 @@ export function UpdateButton({ employee }: UpdateButtonProps) {
     setIsOpen(false)
   }
 
-  return (
+  return isMobile ? (
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="outline">Update</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader className="text-left">
+          <DrawerTitle>Update Employee</DrawerTitle>
+        </DrawerHeader>
+        <div className="p-4">
+          <UpdateEmployee
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            isActive={isActive}
+            setIsActive={setIsActive}
+          />
+        </div>
+        <DrawerFooter className="pt-2">
+          <Button variant="outline" onClick={handleSave}>
+            Save
+          </Button>
+          <DrawerClose asChild>
+            <Button variant="destructive">Cancel</Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  ) : (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
@@ -51,36 +96,14 @@ export function UpdateButton({ employee }: UpdateButtonProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Update Employee</DialogTitle>
-        <div className="flex items-center">
-          <Label className="flex-1" htmlFor="">
-            Name
-          </Label>
-          <Input
-            className="flex-3"
-            placeholder="Enter name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center">
-          <Label className="flex-1" htmlFor="">
-            Email
-          </Label>
-          <Input
-            className="flex-3"
-            placeholder="Enter email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center">
-          <Label className="flex-1" htmlFor="">
-            Status
-          </Label>
-          <div className="flex-3">
-            <Switch checked={isActive} onCheckedChange={setIsActive} />
-          </div>
-        </div>
+        <UpdateEmployee
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+          isActive={isActive}
+          setIsActive={setIsActive}
+        />
         <DialogFooter className="flex justify-between">
           <DialogClose asChild>
             <Button variant="destructive" onClick={handleCancel}>

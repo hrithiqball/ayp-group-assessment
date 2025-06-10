@@ -1,6 +1,7 @@
 import { DisplayTable } from '@/components/home/display-table'
 
 import { employeesByJson } from '@/employees'
+import { Users } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 export default async function Home(props: { searchParams: SearchParams }) {
@@ -17,14 +18,12 @@ export default async function Home(props: { searchParams: SearchParams }) {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Employee Management
+    <div className="container mx-auto p-4 space-y-4">
+      <div className="flex items-center space-x-2">
+        <Users className="size-4" />
+        <h1 className="text-xl font-bold tracking-tight">
+          AYP Group Employee Management
         </h1>
-        <p className="text-muted-foreground">
-          Manage your employee records and status
-        </p>
       </div>
       <DisplayTable initialData={data.employees} />
     </div>
