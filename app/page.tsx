@@ -1,12 +1,34 @@
+'use client'
+
 import { DisplayTable } from '@/components/home/display-table'
 
-import { employeesByJson } from '@/employees'
-import { Users } from 'lucide-react'
+import { Employee } from '@/types/employee'
+import { Loader2, Users } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default async function Home(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams
-  const data = await employeesByJson()
+  // const data = await employeesByJson()
+  const [employees, setEmployees] = useState<Employee[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchEmployees() {
+      try {
+        const res = await fetch('/employees.json')
+        if (!res.ok) throw new Error('Failed to load employees.json')
+        const data = await res.json()
+        setEmployees(data.employees)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchEmployees()
+  }, [])
 
   const hasSize = searchParams.size !== undefined
   const hasPage = searchParams.page !== undefined
@@ -25,6 +47,13 @@ export default async function Home(props: { searchParams: SearchParams }) {
     )
   }
 
+  if (loading)
+    return (
+      <div className="flex items-center justify-center">
+        <Loader2 className="animate-spin" />
+      </div>
+    )
+
   return (
     <div className="container mx-auto p-4 space-y-4">
       <div className="flex items-center space-x-2">
@@ -33,7 +62,7 @@ export default async function Home(props: { searchParams: SearchParams }) {
           AYP Group Employee Management
         </h1>
       </div>
-      <DisplayTable initialData={data.employees} />
+      <DisplayTable initialData={employees} />
     </div>
   )
 }
