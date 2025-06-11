@@ -16,7 +16,9 @@ function HomeContent() {
   useEffect(() => {
     async function fetchEmployees() {
       try {
-        const res = await fetch('/employees.json')
+        const basePath =
+          process.env.NODE_ENV === 'production' ? '/ayp-group-assessment' : ''
+        const res = await fetch(`${basePath}/employees.json`)
         if (!res.ok) throw new Error('Failed to load employees.json')
         const data = await res.json()
         setEmployees(data.employees)
@@ -69,11 +71,13 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center">
-        <Loader2 className="animate-spin" />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center">
+          <Loader2 className="animate-spin" />
+        </div>
+      }
+    >
       <HomeContent />
     </Suspense>
   )
