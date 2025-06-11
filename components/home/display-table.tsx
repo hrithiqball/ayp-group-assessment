@@ -1,5 +1,3 @@
-'use client'
-
 import { UpdateButton } from '@/components/home/update-button'
 import { Pagination } from '@/components/home/pagination'
 import {

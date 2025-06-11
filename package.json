@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "deploy": "next build && gh-pages -d out"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -32,9 +33,11 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "gh-pages": "^6.3.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
+  "homepage": "https://hrithiqball.github.io/ayp-group-assessment",
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }
