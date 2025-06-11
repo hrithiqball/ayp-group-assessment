@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   output: 'export',
-  basePath: '/harith-ayp-group-assessment',
+  basePath: '/ayp-group-assessment',
   trailingSlash: true,
 }
 
